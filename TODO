@@ -1,0 +1,14 @@
+- [ ] use proper PGP signatures check
+- [ ] links created in install scripts are not tracked by pacman and should
+       thus be avoided
+  - add a `pre_upgrade` function that removes these links if they exist
+  - add the links inside the PKGBUILD
+- [ ] groups should not be removed when package is uninstalled because
+       left-over files in `/var/lib/cassandra` would thus be left without owner
+       and group
+  - remove `post_remove` function from install scripts
+- [ ] use Systemd's `ProtectSystem` and `ProtectHome` in service file
+- [ ] get rid of patch `fix_cassandra_home_path` and use a `sed -i … > …`
+- [ ] remove so of foreign formats from `/usr/share/java/cassandra/sigar-bin/`
+- [ ] move directory `/usr/share/java/cassandra/sigar-bin/` out of `…/java/…`
+- [ ] extract package sigar as its own package?
