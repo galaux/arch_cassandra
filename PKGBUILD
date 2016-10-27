@@ -28,14 +28,15 @@ backup=(etc/cassandra/cassandra-env.sh
         etc/cassandra/logback.xml
         etc/cassandra/logback-tools.xml)
 install=cassandra.install
-_url_tgz="http://www.apache.org/dist/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz"
-source=("${_url_tgz}"
+source=(http://www.apache.org/dist/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz{,.asc}
         '01_fix_cassandra_home_path.patch'
         'cassandra.install'
         'cassandra.service'
         'cassandra-tmpfile.conf'
         'cassandra-user.conf')
+validpgpkeys=('A26E528B271F19B9E5D8E19EA278B781FE4B2BDA') # Michael Shuler
 sha256sums=('27cf88a6bce1ee2fb1a1c936094b9200ad844414c2b5b1491ba4991fcc0fd693'
+            'SKIP'
             'bbb5dcc19cac4e19c506210da901280c3063a6a241480bf12bc874e6a5c02657'
             '971d6d0f21963b2d9443039431e5225191771454728c6eda4aab9175ee478ce4'
             'abc9d54399c84eacf5922811b5480846ea1c88a73c5d214ea1db3d20c7c0422a'
@@ -46,21 +47,6 @@ build() {
   cd ${srcdir}/apache-cassandra-${pkgver}
 
   patch -p0 < ${srcdir}/01_fix_cassandra_home_path.patch
-}
-
-## to check gpg signature
-check() {
-  msg "Checking GPG signature..."
-  msg2 "(To disable gpg-check: build with '--nocheck')"
-
-  _url_keys='https://www.apache.org/dist/cassandra/KEYS'
-  msg "Importing GPG keys from ${_url_keys} ..."
-  wget --quiet -O - ${_url_keys} | gpg --import -
-
-  # no need to add signature to package dependences
-  echo "${_url_tgz}.asc"
-  wget --quiet -O - "${_url_tgz}.asc" | gpg --verify - "apache-${pkgname}-${pkgver}-bin.tar.gz"
-  msg2 "Detached GPG signature is valid."
 }
 
 package() {
