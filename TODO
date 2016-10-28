@@ -1,9 +1,7 @@
 - [x] use proper PGP signatures check
 - [x] remove install file from `source` array
-- [ ] links created in install scripts are not tracked by pacman and should
+- [x] links created in install scripts are not tracked by pacman and should
        thus be avoided
-  - add a `pre_upgrade` function that removes these links if they exist
-  - add the links inside the PKGBUILD
 - [ ] groups should not be removed when package is uninstalled because
        left-over files in `/var/lib/cassandra` would thus be left without owner
        and group

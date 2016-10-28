@@ -70,6 +70,9 @@ package() {
   cp -a conf/* ${pkgdir}/etc/cassandra/
   ln -s /etc/cassandra ${pkgdir}/usr/share/cassandra/conf
 
+  ln -s /var/lib/cassandra ${pkgdir}/usr/share/cassandra/data
+  ln -s /var/log/cassandra ${pkgdir}/usr/share/cassandra/logs
+
   install -Dm644 ${srcdir}/cassandra.service ${pkgdir}/usr/lib/systemd/system/cassandra.service
   install -Dm644 ${srcdir}/cassandra-tmpfile.conf ${pkgdir}/usr/lib/tmpfiles.d/cassandra.conf
   install -Dm644 ${srcdir}/cassandra-user.conf ${pkgdir}/usr/lib/sysusers.d/cassandra.conf

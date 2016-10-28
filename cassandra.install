@@ -1,9 +1,6 @@
 post_install() {
   systemd-sysusers cassandra.conf
   systemd-tmpfiles --create cassandra.conf
-
-  ln -snf /var/lib/cassandra /usr/share/cassandra/data
-  ln -snf /var/log/cassandra /usr/share/cassandra/logs
 }
 
 post_upgrade() {
