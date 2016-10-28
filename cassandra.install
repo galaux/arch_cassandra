@@ -10,12 +10,3 @@ post_upgrade() {
 pre_remove() {
   systemctl stop cassandra
 }
-
-post_remove() {
-  if getent passwd cassandra >/dev/null 2>&1; then
-    userdel cassandra
-  fi
-  if getent group cassandra >/dev/null 2>&1; then
-    groupdel cassandra
-  fi
-}

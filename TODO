@@ -2,13 +2,13 @@
 - [x] remove install file from `source` array
 - [x] links created in install scripts are not tracked by pacman and should
        thus be avoided
-- [ ] groups should not be removed when package is uninstalled because
+- [x] groups should not be removed when package is uninstalled because
        left-over files in `/var/lib/cassandra` would thus be left without owner
        and group
   - remove `post_remove` function from install scripts
 - [ ] use Systemd's `ProtectSystem` and `ProtectHome` in service file
-- [ ] get rid of patch `fix_cassandra_home_path` and use a `sed -i … > …`
 - [ ] remove so of foreign formats from `/usr/share/java/cassandra/sigar-bin/`
 - [ ] move directory `/usr/share/java/cassandra/sigar-bin/` out of `…/java/…`
+- [ ] get rid of patch `fix_cassandra_home_path` and use a `sed -i … > …`
 - [ ] extract package sigar as its own package?
 - [ ] use Systemd logging?
