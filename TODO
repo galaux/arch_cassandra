@@ -1,4 +1,5 @@
 - [x] use proper PGP signatures check
+- [x] remove install file from `source` array
 - [ ] links created in install scripts are not tracked by pacman and should
        thus be avoided
   - add a `pre_upgrade` function that removes these links if they exist
@@ -12,3 +13,4 @@
 - [ ] remove so of foreign formats from `/usr/share/java/cassandra/sigar-bin/`
 - [ ] move directory `/usr/share/java/cassandra/sigar-bin/` out of `…/java/…`
 - [ ] extract package sigar as its own package?
+- [ ] use Systemd logging?

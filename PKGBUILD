@@ -30,7 +30,6 @@ backup=(etc/cassandra/cassandra-env.sh
 install=cassandra.install
 source=(http://www.apache.org/dist/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz{,.asc}
         '01_fix_cassandra_home_path.patch'
-        'cassandra.install'
         'cassandra.service'
         'cassandra-tmpfile.conf'
         'cassandra-user.conf')
@@ -38,7 +37,6 @@ validpgpkeys=('A26E528B271F19B9E5D8E19EA278B781FE4B2BDA') # Michael Shuler
 sha256sums=('27cf88a6bce1ee2fb1a1c936094b9200ad844414c2b5b1491ba4991fcc0fd693'
             'SKIP'
             'bbb5dcc19cac4e19c506210da901280c3063a6a241480bf12bc874e6a5c02657'
-            '971d6d0f21963b2d9443039431e5225191771454728c6eda4aab9175ee478ce4'
             'abc9d54399c84eacf5922811b5480846ea1c88a73c5d214ea1db3d20c7c0422a'
             '7ea0024331734b9755b6fa2ed1881f9bc608b551990b96f14e80406cb6b05eb8'
             '7a87a4369ca2c13558fa8733f6abdcf548c63dda8a16790b5bcc20bae597ee91')
