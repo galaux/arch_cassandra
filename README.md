@@ -1,5 +1,11 @@
 # Arch Linux User Repository package for Cassandra
 
+This is **a clone** of the
+[AUR Cassandra package](https://aur.archlinux.org/packages/cassandra/)
+augmented with several patch. Commits should be self-explanatory but watch out
+for [this commit](https://github.com/galaux/arch_cassandra/commit/ae90a217c803b4d2965d000d1429dc2b6b9301c4)
+which introduces a file conflict (see the commit log for an explanation).
+
 ## TODO
 
 - [x] use proper PGP signatures check
