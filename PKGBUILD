@@ -30,9 +30,10 @@ source=(http://www.apache.org/dist/${pkgname}/${pkgver}/apache-${pkgname}-${pkgv
         'cassandra-tmpfile.conf'
         'cassandra-user.conf')
 validpgpkeys=('A26E528B271F19B9E5D8E19EA278B781FE4B2BDA') # Michael Shuler
+
 sha256sums=('27cf88a6bce1ee2fb1a1c936094b9200ad844414c2b5b1491ba4991fcc0fd693'
             'SKIP'
-            'db72756f510d74d4d45c64117ac75b508aac5aa49c5b769c834fcc887591b4ad'
+            '03519eebdcdd736bc4f67ef0d4bc5538366123ec7f2b766de138ebb4c9c5bc6d'
             '7ea0024331734b9755b6fa2ed1881f9bc608b551990b96f14e80406cb6b05eb8'
             '7a87a4369ca2c13558fa8733f6abdcf548c63dda8a16790b5bcc20bae597ee91')
 

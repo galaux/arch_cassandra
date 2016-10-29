@@ -19,7 +19,7 @@
 - [ ] when stopped, `systemd status cassandra` says `failed`: fix that
   - see if `Type=forking` is the right thing to use here
 - [ ] check limits set in service file (specifically `infinity` values)
-- [ ] remove `JAVA_HOME` from Systemd service file? (no need to set it)
+- [x] remove `JAVA_HOME` from Systemd service file? (no need to set it)
 - [x] remove execute rights to `bin/stop-server`
 - [x] remove script `cqlsh` as it just tries to figure out whether Python2 is
       installed and afterwards just run `cqlsh.py` which actually itself is a
