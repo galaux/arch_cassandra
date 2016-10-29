@@ -26,23 +26,15 @@ backup=(etc/cassandra/cassandra-env.sh
         etc/cassandra/logback-tools.xml)
 install=cassandra.install
 source=(http://www.apache.org/dist/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz{,.asc}
-        '01_fix_cassandra_home_path.patch'
         'cassandra.service'
         'cassandra-tmpfile.conf'
         'cassandra-user.conf')
 validpgpkeys=('A26E528B271F19B9E5D8E19EA278B781FE4B2BDA') # Michael Shuler
 sha256sums=('27cf88a6bce1ee2fb1a1c936094b9200ad844414c2b5b1491ba4991fcc0fd693'
             'SKIP'
-            'bbb5dcc19cac4e19c506210da901280c3063a6a241480bf12bc874e6a5c02657'
             'db72756f510d74d4d45c64117ac75b508aac5aa49c5b769c834fcc887591b4ad'
             '7ea0024331734b9755b6fa2ed1881f9bc608b551990b96f14e80406cb6b05eb8'
             '7a87a4369ca2c13558fa8733f6abdcf548c63dda8a16790b5bcc20bae597ee91')
-
-build() {
-  cd ${srcdir}/apache-cassandra-${pkgver}
-
-  patch -p0 < ${srcdir}/01_fix_cassandra_home_path.patch
-}
 
 package() {
   cd ${srcdir}/apache-cassandra-${pkgver}
@@ -54,14 +46,16 @@ package() {
 
   # `cqlsh` just checks Python 2.7 is available then calls `cqlsh.py`
   # which actully is a shell script, not a Python one
-  rm ${pkgdir}/usr/share/cassandra/bin/{cqlsh,*.bat,*.ps1}
+  rm ${pkgdir}/usr/share/cassandra/bin/{cqlsh,cassandra.in.sh,*.bat,*.ps1}
   chmod -x ${pkgdir}/usr/share/cassandra/bin/stop-server
   pushd ${pkgdir}
   find usr/share/cassandra/bin -type f -executable \
     -exec ln -s /{} ${pkgdir}/usr/bin \;
   mv usr/bin/cqlsh.py usr/bin/cqlsh
   popd
-  cp -a bin/cassandra.in.sh ${pkgdir}/usr/share/cassandra/
+
+  sed 's|"`dirname "$0"`/.."|"/usr/share/cassandra"|' bin/cassandra.in.sh \
+    > ${pkgdir}/usr/share/cassandra/cassandra.in.sh
 
   cp -a lib/* ${pkgdir}/usr/share/java/cassandra/
   ln -s ../java/cassandra ${pkgdir}/usr/share/cassandra/lib

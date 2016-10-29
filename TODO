@@ -1,5 +1,5 @@
 - [x] use proper PGP signatures check
-- [x] remove install file from `source` array
+- [x] remove `.install` file from `source` array
 - [x] links created in install scripts are not tracked by pacman and should
        thus be avoided
 - [x] groups should not be removed when package is uninstalled because
@@ -9,11 +9,11 @@
 - [x] use Systemd's `ProtectSystem` and `ProtectHome` in service file
 - [ ] extract and create dependency `sigar` (will require
       `aur/apache-ant-cpptasks`)
-- [ ] extract package sigar as its own package?
 - [x] remove PowerShell scripts from package
-- [ ] get rid of patch `fix_cassandra_home_path` and use a `sed -i … > …`
+- [x] get rid of patch `fix_cassandra_home_path` and use a `sed … > …`
 - [ ] use Systemd logging?
 - [ ] check limits set in service file (specifically `infinity` values)
+- [ ] remove `JAVA_HOME` from Systemd service file? (no need to set it)
 - [x] remove execute rights to `bin/stop-server`
 - [x] remove script `cqlsh` as it just tries to figure out whether Python2 is
       installed and afterwards just run `cqlsh.py` which actually itself is a
