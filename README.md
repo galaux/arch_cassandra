@@ -16,8 +16,7 @@
 - [x] remove PowerShell scripts from package
 - [x] get rid of patch `fix_cassandra_home_path` and use a `sed … > …`
 - [ ] use Systemd logging?
-- [ ] when stopped, `systemd status cassandra` says `failed`: fix that
-  - see if `Type=forking` is the right thing to use here
+- [x] when stopped, `systemd status cassandra` says `failed`: fix that
 - [ ] check limits set in service file (specifically `infinity` values)
 - [x] remove `JAVA_HOME` from Systemd service file? (no need to set it)
 - [x] remove execute rights to `bin/stop-server`
