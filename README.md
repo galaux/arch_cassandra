@@ -1,3 +1,7 @@
+# Arch Linux User Repository package for Cassandra
+
+## TODO
+
 - [x] use proper PGP signatures check
 - [x] remove `.install` file from `source` array
 - [x] links created in install scripts are not tracked by pacman and should
