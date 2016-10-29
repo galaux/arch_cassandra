@@ -17,8 +17,6 @@ arch=('any')
 url='http://cassandra.apache.org/'
 license=('APACHE')
 depends=('java-runtime' 'python2')
-makedepends=('gnupg')
-checkdepends=('wget')
 backup=(etc/cassandra/cassandra-env.sh
         etc/cassandra/cassandra-rackdc.properties
         etc/cassandra/cassandra-topology.properties
