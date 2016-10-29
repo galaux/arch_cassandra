@@ -7,11 +7,18 @@
        and group
   - remove `post_remove` function from install scripts
 - [x] use Systemd's `ProtectSystem` and `ProtectHome` in service file
-- [ ] remove so of foreign formats from `/usr/share/java/cassandra/sigar-bin/`
-- [ ] move directory `/usr/share/java/cassandra/sigar-bin/` out of `…/java/…`
-- [ ] get rid of patch `fix_cassandra_home_path` and use a `sed -i … > …`
+- [ ] extract and create dependency `sigar` (will require
+      `aur/apache-ant-cpptasks`)
 - [ ] extract package sigar as its own package?
+- [x] remove PowerShell scripts from package
+- [ ] get rid of patch `fix_cassandra_home_path` and use a `sed -i … > …`
 - [ ] use Systemd logging?
 - [ ] check limits set in service file (specifically `infinity` values)
-- [ ] either make the package depend on `python` or package all Python CLI
+- [x] remove execute rights to `bin/stop-server`
+- [x] remove script `cqlsh` as it just tries to figure out whether Python2 is
+      installed and afterwards just run `cqlsh.py` which actually itself is a
+      shell script (and not a python one). In `/usr/bin`, create link `cqlsh`
+      that points to `cqlsh.py`
+- [x] fix dependency on Python: requires `python2` and not `python`
+- [x] either make the package depend on `python2` or package all Python CLI
       on their own

@@ -16,10 +16,9 @@ pkgdesc='Apache Cassandra NoSQL database'
 arch=('any')
 url='http://cassandra.apache.org/'
 license=('APACHE')
-depends=('java-runtime')
+depends=('java-runtime' 'python2')
 makedepends=('gnupg')
 checkdepends=('wget')
-optdepends=('python: to use Python CLI administration scripts')
 backup=(etc/cassandra/cassandra-env.sh
         etc/cassandra/cassandra-rackdc.properties
         etc/cassandra/cassandra-topology.properties
@@ -53,15 +52,17 @@ package() {
   mkdir -p ${pkgdir}/{etc/cassandra,var/log/cassandra}
   mkdir -p ${pkgdir}/{usr/bin,usr/share/cassandra,usr/share/java/cassandra}
 
-  cp -a interface pylib tools ${pkgdir}/usr/share/cassandra/
+  cp -a bin interface pylib tools ${pkgdir}/usr/share/cassandra
 
-  mkdir -p ${pkgdir}/usr/share/cassandra/bin/
-  for f in bin/*; do
-    if [[ ! "${f}" == *.bat && -x ${f} ]]; then
-      cp -a ${f} ${pkgdir}/usr/share/cassandra/bin/
-      ln -s /usr/share/cassandra/${f} ${pkgdir}/usr/${f}
-    fi
-  done
+  # `cqlsh` just checks Python 2.7 is available then calls `cqlsh.py`
+  # which actully is a shell script, not a Python one
+  rm ${pkgdir}/usr/share/cassandra/bin/{cqlsh,*.bat,*.ps1}
+  chmod -x ${pkgdir}/usr/share/cassandra/bin/stop-server
+  pushd ${pkgdir}
+  find usr/share/cassandra/bin -type f -executable \
+    -exec ln -s /{} ${pkgdir}/usr/bin \;
+  mv usr/bin/cqlsh.py usr/bin/cqlsh
+  popd
   cp -a bin/cassandra.in.sh ${pkgdir}/usr/share/cassandra/
 
   cp -a lib/* ${pkgdir}/usr/share/java/cassandra/
