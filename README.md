@@ -33,3 +33,7 @@ which introduces a file conflict (see the commit log for an explanation).
 - [x] fix dependency on Python: requires `python2` and not `python`
 - [x] either make the package depend on `python2` or package all Python CLI
       on their own
+- [ ] fix logs
+  - log files show some DEBUG. Lower the level.
+  - do we need the GC log?
+  - could log files and directories be owned by root:log?
