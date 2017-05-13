@@ -71,7 +71,7 @@ package() {
 
   mkdir -p ${pkgdir}/usr/share/cassandra/bin/
   for f in bin/*; do
-    if [[ ! "${f}" == *.bat && -x ${f} ]]; then
+    if [[ ! "${f}" == *.bat && ! "${f}" == *.ps1 && -x ${f} ]]; then
       cp -a ${f} ${pkgdir}/usr/share/cassandra/bin/
       ln -s /usr/share/cassandra/${f} ${pkgdir}/usr/${f}
     fi
@@ -82,6 +82,7 @@ package() {
   ln -s ../java/cassandra ${pkgdir}/usr/share/cassandra/lib
 
   cp -a conf/* ${pkgdir}/etc/cassandra/
+  rm  ${pkgdir}/etc/cassandra/*.ps1
   ln -s /etc/cassandra ${pkgdir}/usr/share/cassandra/conf
 
   install -Dm644 ${srcdir}/cassandra.service ${pkgdir}/usr/lib/systemd/system/cassandra.service
