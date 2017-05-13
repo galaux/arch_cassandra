@@ -5,9 +5,11 @@
 # Contributor: Alper Kanat <alperkanat@raptiye.org>
 # Contributor: adam2fours <adam@2fours.com>
 
-# check() function is used to verify GPG signature. check() imports 3 keys into your GPG keyring at first build.
-# See http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html for reason of this step.
-# If you have problems with gpg, you can remove check() function, and all will be ok.
+# `makepkg` will refuse to build this package unless you either:
+# - manually add upstream signing key to your GPG keyring with:
+#   `gpg --recv-keys <UPSTREAM_KEY(S)>`
+# - set your GPG config to automatically retrieve missing keys by adding
+#   `keyserver-options auto-key-retrieve` to your `~/.gnupg/gpg.conf`
 
 pkgname=cassandra
 pkgver=3.10
@@ -28,13 +30,14 @@ backup=(etc/cassandra/cassandra-env.sh
         etc/cassandra/logback.xml
         etc/cassandra/logback-tools.xml)
 install=cassandra.install
-_url_tgz="http://www.apache.org/dist/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz"
-source=("${_url_tgz}"
+source=(https://www.apache.org/dist/${pkgname}/${pkgver}/apache-${pkgname}-${pkgver}-bin.tar.gz{,.asc}
         '01_fix_cassandra_home_path.patch'
         'cassandra.service'
         'cassandra-tmpfile.conf'
         'cassandra-user.conf')
+validpgpkeys=('A26E528B271F19B9E5D8E19EA278B781FE4B2BDA') # Michael Shuler <michael@pbandjelly.org>
 sha256sums=('c09c3f92d4f80d5639e3f1624c9eec45d25793bbb6b3e3640937b68a9c6d107f'
+            'SKIP'
             'bbb5dcc19cac4e19c506210da901280c3063a6a241480bf12bc874e6a5c02657'
             'abc9d54399c84eacf5922811b5480846ea1c88a73c5d214ea1db3d20c7c0422a'
             '7ea0024331734b9755b6fa2ed1881f9bc608b551990b96f14e80406cb6b05eb8'
@@ -44,21 +47,6 @@ build() {
   cd ${srcdir}/apache-cassandra-${pkgver}
 
   patch -p0 < ${srcdir}/01_fix_cassandra_home_path.patch
-}
-
-## to check gpg signature
-check() {
-  msg "Checking GPG signature..."
-  msg2 "(To disable gpg-check: build with '--nocheck')"
-
-  _url_keys='https://www.apache.org/dist/cassandra/KEYS'
-  msg "Importing GPG keys from ${_url_keys} ..."
-  wget --quiet -O - ${_url_keys} | gpg --import -
-
-  # no need to add signature to package dependences
-  echo "${_url_tgz}.asc"
-  wget --quiet -O - "${_url_tgz}.asc" | gpg --verify - "apache-${pkgname}-${pkgver}-bin.tar.gz"
-  msg2 "Detached GPG signature is valid."
 }
 
 package() {
