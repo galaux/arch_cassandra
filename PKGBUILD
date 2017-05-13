@@ -76,6 +76,7 @@ package() {
       ln -s /usr/share/cassandra/${f} ${pkgdir}/usr/${f}
     fi
   done
+  unlink ${pkgdir}/usr/bin/cqlsh.py
   cp -a bin/cassandra.in.sh ${pkgdir}/usr/share/cassandra/
 
   cp -a lib/* ${pkgdir}/usr/share/java/cassandra/
